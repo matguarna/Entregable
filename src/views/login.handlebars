@@ -1,0 +1,20 @@
+<ul class="menu">
+  <li><a href="http://localhost:8080/views/login">Login</a></li>
+  <li><a href="http://localhost:8080/views/register">Registrarse</a></li>
+  <li><a href="http://localhost:8080/api/session/logout">Logout</a></li>
+  <li><a href="http://localhost:8080/api/productos/paginate">Productos</a></li>
+</ul>
+
+<div>
+  <h2>Login</h2>
+  <form id="loginForm" action="/api/session/login" method="POST">
+    <label>Email</label>
+    <input type="text" name="email" />
+    <br />
+    <label>Password</label>
+    <input name="password" />
+    <input type="submit" />
+  </form>
+
+</div>
+<script src="/static/js/cookieSetter.js"></script>

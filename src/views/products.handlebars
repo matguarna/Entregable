@@ -1,0 +1,45 @@
+<div>
+  <ul class="menu">
+    <li><a href="http://localhost:8080/api/session/logout">Logout</a></li>
+  </ul>
+</div>
+<div>
+  <h2>Bienvenido {{userLogueado.first_name}} {{userLogueado.last_name}}</h2>
+  <h4>Tu username es: {{userLogueado.username}}</h4>
+  <h4>Tu email es: {{userLogueado.email}}</h4>
+  <h4>ROL: {{userLogueado.role}}</h4>
+</div>
+<div>
+  <p>Para agregar productos a su cart ingrese el ID: </p>
+  <span>Carrito: </span><input type="text" id="inputId" placeholder="id carrito" />
+  <br />
+</div>
+<br />
+<div>
+  {{#each payload}}
+    <li>
+      <strong>Producto: </strong>{{this.title}}
+      -
+      <strong>Descripcion: </strong>{{this.descripcion}}
+      -
+      <strong>Precio: </strong>{{this.price}}
+      -
+      <strong>Stock: </strong>{{this.stock}}
+      -
+      <strong>Categoria: </strong>{{this.category}}
+      <button id="botonAgregar" value={{this._id}} onclick="agregarAlCart()">Agregar al carrito</button>
+      <br />
+    </li>
+  {{/each}}
+
+  <center>
+    {{#if hasPrevPage}}
+      <a href="http://localhost:8080/api/productos/paginate?pagina={{prevPage}}"><button>Anterior</button></a>
+    {{/if}}
+    <strong>Página {{page}}/{{totalPages}}</strong>
+    {{#if hasNextPage}}
+      <a href="http://localhost:8080/api/productos/paginate?pagina={{nextPage}}"><button>Siguiente</button></a>
+    {{/if}}
+  </center>
+</div>
+<script type="module" src="/static/js/index.js"></script>

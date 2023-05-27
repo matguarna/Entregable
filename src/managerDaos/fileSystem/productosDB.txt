@@ -1,0 +1,44 @@
+[
+  {
+    "id": "bbb6adrsi4m",
+    "title": "Gorra",
+    "descripcion": "Gorra unisex",
+    "price": 100,
+    "thumbnail": [
+      "url",
+      "url"
+    ],
+    "code": "C3",
+    "stock": 15,
+    "category": "varios",
+    "status": true
+  },
+  {
+    "id": "82olo1djp09",
+    "title": "Remera",
+    "descripcion": "Remera para hombre",
+    "price": 150,
+    "thumbnail": [
+      "url",
+      "url"
+    ],
+    "code": "C1",
+    "stock": 20,
+    "category": "varios",
+    "status": true
+  },
+  {
+    "id": "24eka1qtfdcn",
+    "title": "lapiz",
+    "descripcion": "lapiz de madera",
+    "price": 50,
+    "thumbnail": [
+      "url",
+      "url"
+    ],
+    "code": "L5",
+    "stock": 115,
+    "category": "varios",
+    "status": true
+  }
+]

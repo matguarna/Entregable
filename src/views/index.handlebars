@@ -1,0 +1,17 @@
+<div>
+  <h1>Hola {{userhbs.name}} {{userhbs.lastname}}, soy el index handlebars.</h1>
+  <h2>Email: {{userhbs.mail}}</h2>
+  {{#if isAdmin}}
+    <h3>Es admin</h3>
+    {{#each food}}
+      <div>
+        <p>{{this.name}}</p>
+        <p>{{this.price}}</p>
+      </div>
+    {{/each}}
+  {{else}}
+    <h3>Es user, no puede ver productos</h3>
+  {{/if}}
+</div>
+
+<script src="/static/js/index.js"></script>

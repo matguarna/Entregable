@@ -1,0 +1,38 @@
+<div>
+  {{#each payload}}
+    <li>
+      <li>
+        ID:
+        {{this.product._id}}
+      </li>
+      <li>
+        Title:
+        {{this.product.title}}
+      </li>
+      <li>
+        Descripcion:
+        {{this.product.descripcion}}
+      </li>
+      <li>
+        Precio:
+        {{this.product.price}}
+      </li>
+      <li>
+        Stock:
+        {{this.product.stock}}
+      </li>
+      <li>
+        Categoria:
+        {{this.product.category}}
+      </li>
+      <li>
+        Code:
+        {{this.product.code}}
+      </li>
+      <li>
+        Cantidad:
+        {{this.quantity}}
+      </li>
+    </li>
+  {{/each}}
+</div>
