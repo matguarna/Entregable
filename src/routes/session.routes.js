@@ -139,40 +139,44 @@ sessionRouter.get("/counter", (req, res) => {
 // );
 
 //Login con passport y JSON WEB TOKEN
-sessionRouter.post("/login", async (req, res) => {
-  const { email, password } = req.body;
+sessionRouter.post(
+  "/login",
+  passport.authenticate("login", {
+    failureRedirect: "http://localhost:8080/api/session/faillogin", //En caso de fallar, va a la ruta de escape especificada
+  }),
+  async (req, res) => {
+    const { email, password } = req.body;
 
-  const userDB = await userModel.findOne({ email }).lean();
-  console.log("Aca todo bien 2");
-  console.log(userDB);
+    const userDB = await userModel.findOne({ email }).lean();
 
-  //Validar passwd hasheada
-  if (isValidPassword(password, userDB) == false) {
-    return res.status(401).send({ status: "Error", message: "Usuario o contraseña incorrecta" });
+    //Validar passwd hasheada
+    if (isValidPassword(password, userDB) == false) {
+      return res.status(401).send({ status: "Error", message: "Usuario o contraseña incorrecta" });
+    }
+
+    if (!userDB) {
+      return res.send({ status: "error", message: "Logueo incorrecto" });
+    }
+
+    //Guarda los datos en la sesion
+    req.session.user = {
+      first_name: userDB.first_name,
+      last_name: userDB.last_name,
+      email: userDB.email,
+      username: userDB.username,
+      role: "usuario",
+    };
+
+    //Variable sin la password de userDB, para generar el access token
+    let userDBsinpass = userDB;
+    delete userDBsinpass.password;
+
+    const access_token = generateToken(userDBsinpass);
+
+    // res.redirect("http://localhost:8080/api/productos/paginate");
+    res.send({ status: "success", message: "Login success", access_token });
   }
-
-  if (!userDB) {
-    return res.send({ status: "error", message: "Logueo incorrecto" });
-  }
-
-  //Guarda los datos en la sesion
-  req.session.user = {
-    first_name: userDB.first_name,
-    last_name: userDB.last_name,
-    email: userDB.email,
-    username: userDB.username,
-    role: "usuario",
-  };
-
-  //Variable sin la password de userDB, para generar el access token
-  let userDBsinpass = userDB;
-  delete userDBsinpass.password;
-
-  const access_token = generateToken(userDBsinpass);
-
-  // res.redirect("http://localhost:8080/api/productos/paginate");
-  res.send({ status: "success", message: "Login success", access_token });
-});
+);
 
 //Register con JSON WEB TOKEN
 sessionRouter.post(
