@@ -1,15 +1,16 @@
 const express = require("express");
-const session = require("express-session"); //Importamos session
-const FileStore = require("session-file-store"); //Importamos fileStore
-const { create } = require("connect-mongo"); //Importamos {create} de connect-mongo
+const session = require("express-session");
+const FileStore = require("session-file-store");
+const { create } = require("connect-mongo");
 const cookieParser = require("cookie-parser");
-const objectConfig = require("./config/objectConfig"); //Importamos objectConfig
+const objectConfig = require("./config/objectConfig");
 const { uploader } = require("./utils/multer");
 const handlebars = require("express-handlebars");
 const { Server } = require("socket.io");
-const routerApp = require("./routes/routerApp"); //Tiene las rutas de app.js
-// Ruta de cookies
-const pruebasRouter = require("./routes/pruebas.router.js");
+const routerApp = require("./routes/routerApp"); //Agrupador de rutas
+const pruebasRouter = require("./routes/pruebas.router.js"); //Cookies
+const { initPassport, initPassportGithub } = require("./config/passport.config"); //Importamos initPassport
+const passport = require("passport"); //Importamos passport
 //__________________________________________________________________
 const app = express();
 const PORT = 8080; //|| process.env.PORT;
@@ -105,5 +106,11 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("newUserConnected", data);
   });
 });
+
+//passport_____________________________________
+initPassport(); //config del middleware
+initPassportGithub();
+passport.use(passport.initialize());
+passport.use(passport.session());
 
 app.use(routerApp);
